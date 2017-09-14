@@ -13,11 +13,16 @@ class ViewController: UIViewController {
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var buddyicons: UIImageView!
     
+    @IBOutlet weak var collectionView: UICollectionView!
+  
     @IBOutlet weak var webView: UIWebView!
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     @IBAction func indexChanged(_ sender: Any) {
+        
+     let identifier = "CellIdentifier"
+        
         
         switch segmentedControl.selectedSegmentIndex
         {
@@ -44,6 +49,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.dataSource = self as? UICollectionViewDataSource
         getBuddyicon()
         GetUserName()
     }
@@ -87,7 +93,7 @@ class ViewController: UIViewController {
             }
             else {return}
             self.buddyicons.clipsToBounds = true
-            self.buddyicons.layer.cornerRadius = 53
+            self.buddyicons.layer.cornerRadius = 36
         }
     }
 }
