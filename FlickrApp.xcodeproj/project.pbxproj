@@ -12,6 +12,8 @@
 		434E3B891F66863300B6B1BD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 434E3B871F66863300B6B1BD /* Main.storyboard */; };
 		434E3B8B1F66863300B6B1BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 434E3B8A1F66863300B6B1BD /* Assets.xcassets */; };
 		434E3B8E1F66863300B6B1BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 434E3B8C1F66863300B6B1BD /* LaunchScreen.storyboard */; };
+		43A3B0E31F6BCAE900D7DC14 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A3B0E21F6BCAE900D7DC14 /* Photo.swift */; };
+		43CB0DF31F6ACA8600ED9919 /* MyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CB0DF21F6ACA8600ED9919 /* MyCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		434E3B8A1F66863300B6B1BD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		434E3B8D1F66863300B6B1BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		434E3B8F1F66863300B6B1BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		43A3B0E21F6BCAE900D7DC14 /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		43CB0DF21F6ACA8600ED9919 /* MyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,8 @@
 				434E3B831F66863300B6B1BD /* AppDelegate.swift */,
 				434E3B851F66863300B6B1BD /* ViewController.swift */,
 				434E3B871F66863300B6B1BD /* Main.storyboard */,
+				43A3B0E21F6BCAE900D7DC14 /* Photo.swift */,
+				43CB0DF21F6ACA8600ED9919 /* MyCollectionViewCell.swift */,
 				434E3B8A1F66863300B6B1BD /* Assets.xcassets */,
 				434E3B8C1F66863300B6B1BD /* LaunchScreen.storyboard */,
 				434E3B8F1F66863300B6B1BD /* Info.plist */,
@@ -136,8 +142,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43A3B0E31F6BCAE900D7DC14 /* Photo.swift in Sources */,
 				434E3B861F66863300B6B1BD /* ViewController.swift in Sources */,
 				434E3B841F66863300B6B1BD /* AppDelegate.swift in Sources */,
+				43CB0DF31F6ACA8600ED9919 /* MyCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,6 +309,7 @@
 				434E3B941F66863300B6B1BD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
