@@ -150,22 +150,23 @@ extension FlickrPhotosViewController {
        // cell.activityIndicator.startAnimating()
         
         //5
-        flickrPhoto.loadLargeImage { loadedFlickrPhoto, error in
+     //   flickrPhoto.loadLargeImage() // { loadedFlickrPhoto, error in
             
 //            //6
 //            cell.activityIndicator.stopAnimating()
             
             //7
-            guard loadedFlickrPhoto.largeImage != nil && error == nil else {
-                return
-            }
+//            guard loadedFlickrPhoto.largeImage != nil && error == nil else {
+//                return
+//            }
             
             //8
-            if let cell = collectionView.cellForItem(at: indexPath) as? FlickrSearchCell
-                , indexPath == self.largePhotoIndexPath  {
-                cell.searchImage.image = loadedFlickrPhoto.largeImage
+            if let cell = collectionView.cellForItem(at: indexPath) as? FlickrSearchCell,
+        
+                indexPath == self.largePhotoIndexPath  {
+                cell.searchImage.image = flickrPhoto.loadLargeImage(flickrPhoto) //loadedFlickrPhoto.largeImage
             }
-        }
+        //}
         
         return cell
     }
