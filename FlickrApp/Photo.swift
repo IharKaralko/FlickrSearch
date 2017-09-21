@@ -15,4 +15,98 @@ class Photo  {
     var farm = Int()
     var server = String()
     var secret = String()
+    
+    
+    func flickrImageURL(_ size:String = "m") -> URL? {
+        if let url =  URL(string: "https://farm\(farm).staticflickr.com/\(server)/\(photoID)_\(secret)_\(size).jpg") {
+            return url
+        }
+        return nil
+    }
+    
+    func loadLargeImage(_ completion: @escaping (_ flickrPhoto:Photo, _ error: NSError?) -> Void) {
+        guard let loadURL = flickrImageURL("b") else {
+            DispatchQueue.main.async {
+                completion(self, nil)
+            }
+            return
+        }
+        
+      //  let loadRequest = URLRequest(url:loadURL)
+        
+        URLSession.shared.dataTask(with: loadURL, completionHandler: { (data, response, error) in
+            if let error = error {
+                DispatchQueue.main.async {
+                    completion(self, error as NSError?)
+                }
+                return
+            }
+            
+            guard let data = data else {
+                DispatchQueue.main.async {
+                    completion(self, nil)
+                }
+                return
+            }
+            
+            let returnedImage = UIImage(data: data)
+            self.largeImage = returnedImage
+            DispatchQueue.main.async {
+                completion(self, nil)
+            }
+        }).resume()
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    func loadLargeImage1(_ photo: Photo)->UIImage?{
+        //guard
+        let loadURL = flickrImageURL("b")// else {
+        
+        let loadRequest = URLRequest(url:loadURL!)
+        
+        URLSession.shared.dataTask(with: loadRequest, completionHandler: { (data, response, error) in
+            if error != nil {
+                print(error!.localizedDescription)
+                
+                return
+            }
+            
+            guard let data = data else {
+                return
+            }
+            
+            let returnedImage = UIImage(data: data)
+            photo.largeImage = returnedImage
+        }).resume()
+        
+        return photo.largeImage
+    }
+    
+    func sizeToFillWidthOfSize(_ size:CGSize) -> CGSize {
+        
+        guard let thumbnail = thumbnail else {
+            return size
+        }
+        
+        let imageSize = thumbnail.size
+        var returnSize = size
+        
+        let aspectRatio = imageSize.width / imageSize.height
+        
+        returnSize.height = returnSize.width / aspectRatio
+        
+        if returnSize.height > size.height {
+            returnSize.height = size.height
+            returnSize.width = size.height * aspectRatio
+        }
+        
+        return returnSize
+    }
 }

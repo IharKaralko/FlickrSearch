@@ -74,7 +74,7 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CellAlbum" id="40U-Za-O4b" customClass="MyAlbumCollectionViewCell" customModule="FlickrApp" customModuleProvider="target">
-                                        <rect key="frame" x="22" y="197" width="217" height="191"/>
+                                        <rect key="frame" x="21.5" y="197" width="217" height="191"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="217" height="191"/>
@@ -194,11 +194,11 @@
             </objects>
             <point key="canvasLocation" x="2717.5999999999999" y="62.518740629685162"/>
         </scene>
-        <!--Flickr Photos View Controller-->
+        <!--Flickr Photos View Controller One-->
         <scene sceneID="JCD-ZG-1SM">
             <objects>
-                <collectionViewController id="67K-sd-p7B" customClass="FlickrPhotosViewController" customModule="FlickrApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="XXV-w3-ad3">
+                <collectionViewController id="67K-sd-p7B" customClass="FlickrPhotosViewControllerOne" customModule="FlickrApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="XXV-w3-ad3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

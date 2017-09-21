@@ -99,8 +99,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
           //  cell.myImageView.image = UIImage(named: images[indexPath.row])
             
             return cell
-        }
-        else {
+             }
+         else {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CellAlbum", for: indexPath) as! MyAlbumCollectionViewCell
             
@@ -137,16 +137,27 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
         
     }
+   
+     func photoForIndexPath(indexPath: IndexPath) -> Photo {
+            return photos[indexPath.row]
+        
+    }
+
     
     
-    //Mark UICollectionViewDelegateFlowLayout
+    
+    
+    
+    
+      //Mark UICollectionViewDelegateFlowLayout
     //1
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
        
         if k == 0 {
-        //2
+            
+                  //2
         let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
         let availableWidth = view.frame.width - paddingSpace
         let widthPerItem = availableWidth / itemsPerRow
@@ -391,7 +402,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
          inexPath = indexPath.row
         // print(inexPath)
         self.performSegue(withIdentifier: "detail", sender: self)
-        }
+         }
+        
     }
     
     
@@ -430,6 +442,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             }
         }
     }
-   // }
-}
+ 
 
+
+    
+}

@@ -164,7 +164,7 @@ extension FlickrPhotosViewController {
             if let cell = collectionView.cellForItem(at: indexPath) as? FlickrSearchCell,
         
                 indexPath == self.largePhotoIndexPath  {
-                cell.searchImage.image = flickrPhoto.loadLargeImage(flickrPhoto) //loadedFlickrPhoto.largeImage
+             //   cell.searchImage.image = flickrPhoto.loadLargeImage(flickrPhoto) //loadedFlickrPhoto.largeImage
             }
         //}
         
