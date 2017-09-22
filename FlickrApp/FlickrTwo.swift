@@ -18,7 +18,7 @@ class FlickrTwo {
             return nil
         }
         
-        let URLString = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=\(apiKey)&text=\(escapedTerm)&per_page=20&format=json&nojsoncallback=1"
+        let URLString = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=\(apiKeyTwo)&text=\(escapedTerm)&per_page=20&format=json&nojsoncallback=1"
         
         guard let url = URL(string:URLString) else {
             return nil
