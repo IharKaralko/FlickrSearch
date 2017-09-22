@@ -100,6 +100,8 @@ class DetailAlbumCollectionViewController: UICollectionViewController, UICollect
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+    
     }
     
     override func didReceiveMemoryWarning() {

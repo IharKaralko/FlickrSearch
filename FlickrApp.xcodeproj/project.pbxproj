@@ -77,24 +77,56 @@
 			isa = PBXGroup;
 			children = (
 				434E3B831F66863300B6B1BD /* AppDelegate.swift */,
-				434E3B851F66863300B6B1BD /* ViewController.swift */,
-				43850DD71F724EA400E00A90 /* Flickr.swift */,
-				43850DD11F723F2800E00A90 /* FlickrSearchResults .swift */,
-				4372D4071F6E874B00B8542E /* Album.swift */,
 				434E3B871F66863300B6B1BD /* Main.storyboard */,
-				43BB76581F6FB2120000C9C7 /* FlickrSearchCell.swift */,
-				43850DD31F72426200E00A90 /* FlickrPhotosViewController.swift */,
-				43BB765A1F6FDF830000C9C7 /* FlickrPhotoHeaderView.swift */,
-				433085FA1F6EBC6900B70DED /* DetailAlbumCollectionViewCell.swift */,
-				433085F81F6EBAEC00B70DED /* DetailAlbumCollectionViewController.swift */,
-				433085F61F6EB30600B70DED /* MyAlbumCollectionViewCell.swift */,
-				43A3B0E21F6BCAE900D7DC14 /* Photo.swift */,
-				43CB0DF21F6ACA8600ED9919 /* MyCollectionViewCell.swift */,
-				434E3B8A1F66863300B6B1BD /* Assets.xcassets */,
-				434E3B8C1F66863300B6B1BD /* LaunchScreen.storyboard */,
+				438126C41F754B4300C863D6 /* Controllers */,
+				438126C51F754B9A00C863D6 /* CustomCell */,
+				438126C61F754BCD00C863D6 /* FlickrFiles */,
+				438126C71F754C2400C863D6 /* Other */,
 				434E3B8F1F66863300B6B1BD /* Info.plist */,
 			);
 			path = FlickrApp;
+			sourceTree = "<group>";
+		};
+		438126C41F754B4300C863D6 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				434E3B851F66863300B6B1BD /* ViewController.swift */,
+				433085F81F6EBAEC00B70DED /* DetailAlbumCollectionViewController.swift */,
+				43850DD31F72426200E00A90 /* FlickrPhotosViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		438126C51F754B9A00C863D6 /* CustomCell */ = {
+			isa = PBXGroup;
+			children = (
+				43BB76581F6FB2120000C9C7 /* FlickrSearchCell.swift */,
+				43BB765A1F6FDF830000C9C7 /* FlickrPhotoHeaderView.swift */,
+				433085FA1F6EBC6900B70DED /* DetailAlbumCollectionViewCell.swift */,
+				43CB0DF21F6ACA8600ED9919 /* MyCollectionViewCell.swift */,
+				433085F61F6EB30600B70DED /* MyAlbumCollectionViewCell.swift */,
+			);
+			name = CustomCell;
+			sourceTree = "<group>";
+		};
+		438126C61F754BCD00C863D6 /* FlickrFiles */ = {
+			isa = PBXGroup;
+			children = (
+				43850DD71F724EA400E00A90 /* Flickr.swift */,
+				4372D4071F6E874B00B8542E /* Album.swift */,
+				43850DD11F723F2800E00A90 /* FlickrSearchResults .swift */,
+				43A3B0E21F6BCAE900D7DC14 /* Photo.swift */,
+			);
+			name = FlickrFiles;
+			sourceTree = "<group>";
+		};
+		438126C71F754C2400C863D6 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				434E3B8C1F66863300B6B1BD /* LaunchScreen.storyboard */,
+				434E3B8A1F66863300B6B1BD /* Assets.xcassets */,
+			);
+			name = Other;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -113,7 +113,8 @@
                                 </cells>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="fYs-Nv-b3V" secondAttribute="bottom" id="3TB-fr-dCS"/>
                             <constraint firstItem="JTw-ns-nAd" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="41" id="4VG-Sn-vDe"/>
@@ -273,7 +274,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vfb-lq-FRb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="967.20000000000005" y="852.3238380809596"/>
+            <point key="canvasLocation" x="978" y="890"/>
         </scene>
         <!--Setting-->
         <scene sceneID="43c-JB-38p">
