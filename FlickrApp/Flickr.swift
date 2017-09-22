@@ -7,10 +7,10 @@
 //
 
 import UIKit
-let apiKeyTwo = "6b78b4e6eda4ef1239026421f11c630a"
+let apiKey = "6b78b4e6eda4ef1239026421f11c630a"
 
-class FlickrTwo {
-    var results: FlickrSearchResultsOne?
+class Flickr {
+ 
     
     func flickrSearchURLForSearchTerm(_ searchTerm:String) -> URL? {
         
@@ -18,7 +18,7 @@ class FlickrTwo {
             return nil
         }
         
-        let URLString = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=\(apiKeyTwo)&text=\(escapedTerm)&per_page=20&format=json&nojsoncallback=1"
+        let URLString = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=\(apiKey)&text=\(escapedTerm)&per_page=20&format=json&nojsoncallback=1"
         
         guard let url = URL(string:URLString) else {
             return nil
@@ -28,7 +28,7 @@ class FlickrTwo {
     }
     
    
-     func searchFlickrForTerm(_ searchTerm: String, completion : @escaping (_ results: FlickrSearchResultsOne?, _ error : NSError?) -> Void){
+     func searchFlickrForTerm(_ searchTerm: String, completion : @escaping (_ results: FlickrSearchResults?, _ error : NSError?) -> Void){
         
         guard let searchURL = flickrSearchURLForSearchTerm(searchTerm) else {
             let APIError = NSError(domain: "FlickrSearch", code: 0, userInfo: [NSLocalizedFailureReasonErrorKey:"Unknown API response"])
@@ -107,7 +107,7 @@ class FlickrTwo {
                         }
                     }
                   DispatchQueue.main.async{
-                    completion(FlickrSearchResultsOne(searchTerm: searchTerm, searchResults: flickrPhotos), nil)
+                    completion(FlickrSearchResults(searchTerm: searchTerm, searchResults: flickrPhotos), nil)
                     }
                     
                         }
@@ -119,61 +119,7 @@ class FlickrTwo {
            
             }.resume()
         
-        //return results
-    }
+            }
    
-    func GetJsonPhoto(_ searchTerm: String){
-       let session = URLSession.shared
-        
-        guard  let searchURL = flickrSearchURLForSearchTerm(searchTerm)
-            else {
-                results = nil
-                print("Unknown API response")
-                return
-        }
-        
-        session.dataTask(with:searchURL) { (data, response, error) in
-//            if error != nil {
-//                print(error!.localizedDescription)
-//            } else {
-                do {
-                    let parsedData = try JSONSerialization.jsonObject(with: data!) as! [String:Any]
-                    // print(parsedData)
-                    
-                    
-                    let currentConditions = parsedData["photos"] as! [String:Any]
-                    // print(currentConditions)
-                    let members = currentConditions["photo"] as! [[String: Any]]
-                    print(members.count)
-                    
-                    var photos = [Photo]()
-                    
-                    
-                    for mem in members{
-                        //  print(mem)
-                        
-                        let photo = Photo()
-                        
-                        
-                        photo.photoID  = mem["id"] as! String
-                        photo.farm = mem["farm"] as! Int
-                        photo.server = mem["server"] as! String
-                        photo.secret = mem["secret"] as! String
-                        
-                        
-                        photos.append(photo)
-                       
-                    }
-                    
-                    OperationQueue.main.addOperation({
-                        self.results = FlickrSearchResultsOne(searchTerm: searchTerm, searchResults: photos)})
-                    
-                  }
-                catch let error as NSError {
-                    print(error.localizedDescription)
-                }
-           // }
-            }.resume()
-         }
-       
+    
 }

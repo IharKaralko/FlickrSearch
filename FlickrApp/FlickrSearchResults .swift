@@ -7,7 +7,7 @@
 //
 
 import Foundation
-struct FlickrSearchResultsOne {
+struct FlickrSearchResults {
     let searchTerm : String
     let searchResults : [Photo]
 }
