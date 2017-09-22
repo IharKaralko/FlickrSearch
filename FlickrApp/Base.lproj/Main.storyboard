@@ -194,10 +194,10 @@
             </objects>
             <point key="canvasLocation" x="2717.5999999999999" y="62.518740629685162"/>
         </scene>
-        <!--Flickr Photos View Controller One-->
+        <!--Flickr Photos View Controller-->
         <scene sceneID="JCD-ZG-1SM">
             <objects>
-                <collectionViewController id="67K-sd-p7B" customClass="FlickrPhotosViewControllerOne" customModule="FlickrApp" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController id="67K-sd-p7B" customClass="FlickrPhotosViewController" customModule="FlickrApp" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="XXV-w3-ad3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

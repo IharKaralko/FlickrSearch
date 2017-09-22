@@ -9,7 +9,7 @@
 import UIKit
 
 
- class FlickrPhotosViewControllerOne: UICollectionViewController {
+ class FlickrPhotosViewController: UICollectionViewController {
     
     // MARK: - Properties
     let reuseIdentifier = "SearchCell"
@@ -49,13 +49,13 @@ import UIKit
 }
 
 // MARK: - Private
- extension FlickrPhotosViewControllerOne {
+ extension FlickrPhotosViewController {
     func photoForIndexPath(indexPath: IndexPath) -> Photo {
         return searches[(indexPath as NSIndexPath).section].searchResults[(indexPath as IndexPath).row]
     }
 }
 
-extension FlickrPhotosViewControllerOne : UITextFieldDelegate {
+extension FlickrPhotosViewController : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // 1
 //        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
@@ -92,7 +92,7 @@ extension FlickrPhotosViewControllerOne : UITextFieldDelegate {
     }
 }
 // MARK: - UICollectionViewDataSource
-extension FlickrPhotosViewControllerOne {
+extension FlickrPhotosViewController {
     //1
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return searches.count
@@ -197,7 +197,7 @@ extension FlickrPhotosViewControllerOne {
     
 }
 
-extension FlickrPhotosViewControllerOne : UICollectionViewDelegateFlowLayout {
+extension FlickrPhotosViewController : UICollectionViewDelegateFlowLayout {
     //1
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -237,7 +237,7 @@ extension FlickrPhotosViewControllerOne : UICollectionViewDelegateFlowLayout {
 }
 
 // MARK: - UICollectionViewDelegate
-extension FlickrPhotosViewControllerOne {
+extension FlickrPhotosViewController {
     
     override func collectionView(_ collectionView: UICollectionView,
                                  shouldSelectItemAt indexPath: IndexPath) -> Bool {
