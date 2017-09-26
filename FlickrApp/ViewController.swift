@@ -9,25 +9,22 @@
 import UIKit
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
     var k = 0
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var buddyicons: UIImageView!
-    
     @IBOutlet weak var collectionView: UICollectionView!
-    
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
-    //let identifier = "CellIdentifier"
     let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
     let itemsPerRow: CGFloat = 3
     var inexPath: Int?
-    
-    //1
+    var photos = [Photo]()
+    var sets = [Album]()
     
     var largePhotoIndexPath: IndexPath? {
         didSet {
             
-            //2
             var indexPaths = [IndexPath]()
             if let largePhotoIndexPath = largePhotoIndexPath {
                 indexPaths.append(largePhotoIndexPath)
@@ -35,7 +32,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             if let oldValue = oldValue {
                 indexPaths.append(oldValue)
             }
-            //3
             collectionView?.performBatchUpdates({
                 self.collectionView?.reloadItems(at: indexPaths)
             }) { completed in
@@ -47,13 +43,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                         animated: true)
                 }
             }
-            
-            
         }
     }
-    
-    var photos = [Photo]()
-    var sets = [Album]()
     
     @IBAction func indexChanged(_ sender: Any) {
         switch segmentedControl.selectedSegmentIndex
@@ -70,7 +61,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     
-    
+    //extension
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
@@ -373,6 +364,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             if let image = UIImage(data: imageData) {
                 DispatchQueue.main.async{
                     self.buddyicons.image = image
+                    print(image)
                 }
             }
             else {return}
@@ -392,8 +384,5 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             }
         }
     }
-    
-    
-    
-    
 }
+
