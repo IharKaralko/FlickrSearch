@@ -31,15 +31,12 @@ class Flickr {
      func searchFlickrForTerm(_ searchTerm: String, completion : @escaping (_ results: FlickrSearchResults?, _ error : NSError?) -> Void){
         
         guard let searchURL = flickrSearchURLForSearchTerm(searchTerm) else {
-            let APIError = NSError(domain: "FlickrSearch", code: 0, userInfo: [NSLocalizedFailureReasonErrorKey:"Unknown API response"])
+            let APIError = NSError(domain: "FlickrApp", code: 0, userInfo: [NSLocalizedFailureReasonErrorKey:"Unknown API response"])
             completion(nil, APIError)
             return
         }
         
         let session = URLSession.shared
-      //  let searchRequest = URLRequest(url: searchURL)
-        
-    
         
         session.dataTask(with:searchURL) { (data, response, error) in
             if let _ = error {
@@ -60,7 +57,7 @@ class Flickr {
             }
                   do {
                     let parsedData = try JSONSerialization.jsonObject(with: data) as! [String:Any]
-                    // print(parsedData)
+                  
                     guard   let stat = parsedData["stat"] as? String else {
                         return
                     }
@@ -86,11 +83,9 @@ class Flickr {
                     
                     var flickrPhotos = [Photo]()
                     
-                                     for mem in photosReceived{
-                               
+                    for mem in photosReceived{
+                        
                         let photo = Photo()
-                        
-                        
                         photo.photoID  = mem["id"] as! String
                         photo.farm = mem["farm"] as! Int
                         photo.server = mem["server"] as! String
@@ -106,20 +101,16 @@ class Flickr {
                             flickrPhotos.append(photo)
                         }
                     }
-                  DispatchQueue.main.async{
-                    completion(FlickrSearchResults(searchTerm: searchTerm, searchResults: flickrPhotos), nil)
+                    DispatchQueue.main.async{
+                        completion(FlickrSearchResults(searchTerm: searchTerm, searchResults: flickrPhotos), nil)
                     }
-                    
-                        }
-                  catch _ {
+                  }
+                    catch _ {
                     completion(nil, nil)
                     return
-                     
-            }
-           
+             }
+            
             }.resume()
         
-            }
-   
-    
+    }
 }

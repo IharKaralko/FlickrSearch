@@ -31,9 +31,6 @@ class Photo  {
             }
             return
         }
-        
-      //  let loadRequest = URLRequest(url:loadURL)
-        
         URLSession.shared.dataTask(with: loadURL, completionHandler: { (data, response, error) in
             if let error = error {
                 DispatchQueue.main.async {
@@ -58,55 +55,20 @@ class Photo  {
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    func loadLargeImage1(_ photo: Photo)->UIImage?{
-        //guard
-        let loadURL = flickrImageURL("b")// else {
-        
-        let loadRequest = URLRequest(url:loadURL!)
-        
-        URLSession.shared.dataTask(with: loadRequest, completionHandler: { (data, response, error) in
-            if error != nil {
-                print(error!.localizedDescription)
-                
-                return
-            }
-            
-            guard let data = data else {
-                return
-            }
-            
-            let returnedImage = UIImage(data: data)
-            photo.largeImage = returnedImage
-        }).resume()
-        
-        return photo.largeImage
-    }
-    
     func sizeToFillWidthOfSize(_ size:CGSize) -> CGSize {
         
         guard let thumbnail = thumbnail else {
             return size
         }
-        
         let imageSize = thumbnail.size
         var returnSize = size
-        
         let aspectRatio = imageSize.width / imageSize.height
-        
         returnSize.height = returnSize.width / aspectRatio
         
         if returnSize.height > size.height {
             returnSize.height = size.height
             returnSize.width = size.height * aspectRatio
         }
-        
         return returnSize
     }
 }

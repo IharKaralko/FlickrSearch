@@ -307,7 +307,7 @@ extension ViewController: UICollectionViewDelegateFlowLayout{
                 size.width = 280
                 return flickrPhoto.sizeToFillWidthOfSize(size)
              }
-            return CGSize(width: 140, height: 140)
+              return CGSize(width: 140, height: 140)
         }
         else {
             return CGSize(width: 220, height: 190)
