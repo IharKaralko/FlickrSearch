@@ -65,17 +65,13 @@ extension FlickrPhotosViewController : UITextFieldDelegate {
                 print("Error searching : \(error)")
                 return
             }
-            
-            if let results = results {
-                // 3
+             if let results = results {
                 print("Found \(results.searchResults.count) matching \(results.searchTerm)")
                 self.searches.insert(results, at: 0)
                 
-                // 4
-                self.collectionView?.reloadData()
+                 self.collectionView?.reloadData()
             }
         }
-        
         textField.text = nil
         textField.resignFirstResponder()
         return true
