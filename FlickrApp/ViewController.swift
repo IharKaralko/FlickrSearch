@@ -16,7 +16,17 @@ class ViewController: UIViewController{
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
-    var inexPath: Int?
+    deinit {
+        <#statements#>
+    }
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        <#code#>
+    }
+    override func awakeFromNib() {
+        <#code#>
+    }
+    
+    var pathRow = Int()
     var photos = [Photo]()
     var sets = [Album]()
     
@@ -30,12 +40,12 @@ class ViewController: UIViewController{
             if let oldValue = oldValue {
                 indexPaths.append(oldValue)
             }
-            collectionView?.performBatchUpdates({
-                self.collectionView?.reloadItems(at: indexPaths)
+            collectionView.performBatchUpdates({
+                self.collectionView.reloadItems(at: indexPaths)
             }) { completed in
                 //4
                 if let largePhotoIndexPath = self.largePhotoIndexPath {
-                    self.collectionView?.scrollToItem(
+                    self.collectionView.scrollToItem(
                         at: largePhotoIndexPath,
                         at: .centeredVertically,
                         animated: true)
@@ -72,34 +82,40 @@ class ViewController: UIViewController{
     let buddyiconUrl = "http://farm5.staticflickr.com/4389/buddyicons/158119896@N05.jpg"
 
     func getBuddyicon(){
-          DispatchQueue.global().async{
+        DispatchQueue.global().async{
             guard let url = URL(string: self.buddyiconUrl) else { return }
             guard let imageData = try? Data(contentsOf: url) else { return }
             if let image = UIImage(data: imageData) {
                 DispatchQueue.main.async{
                     self.buddyicons.image = image
+                    self.buddyicons.clipsToBounds = true
+                    self.buddyicons.layer.cornerRadius = 36
                 }
             }
-            else {return}
-            self.buddyicons.clipsToBounds = true
-            self.buddyicons.layer.cornerRadius = 36
+            else { return }
         }
     }
- 
+    
     func GetUserName(){
          let memberLinkRequest = "https://api.flickr.com/services/rest/?method=flickr.people.getInfo&api_key=6b78b4e6eda4ef1239026421f11c630a&user_id=158119896@N05&format=json&nojsoncallback=1"
         let session = URLSession.shared
         guard let linkurl = URL(string: memberLinkRequest) else { return }
         
         session.dataTask(with:linkurl) { (data, response, error) in
+           
+            guard let data = data,
+            let _ = response as? HTTPURLResponse
+                        else { return }
+            
             if error != nil {
                 print(error!.localizedDescription)
             } else {
                 do {
-                    let parsedData = try JSONSerialization.jsonObject(with: data!) as! [String:Any]
-                    let currentConditions = parsedData["person"] as! [String:Any]
-                    let linkMembers =  currentConditions["username"] as! [String:Any]
-                    let linkFeed = linkMembers["_content"] as! String
+                  guard  let parsedData = try JSONSerialization.jsonObject(with: data) as? [String:Any],
+                    let currentConditions = parsedData["person"] as? [String:Any],
+                    let linkMembers =  currentConditions["username"] as? [String:Any],
+                    let linkFeed = linkMembers["_content"] as? String
+                    else { return }
                     DispatchQueue.main.async{
                         self.userName.text = linkFeed
                     }
@@ -118,22 +134,33 @@ class ViewController: UIViewController{
         guard let url = URL(string: urlString) else { return }
         
         session.dataTask(with:url) { (data, response, error) in
+            guard let data = data,
+                let _ = response as? HTTPURLResponse
+                else { return }
+            
+            
             if error != nil {
                 print(error!.localizedDescription)
             } else {
                 do {
-                    let parsedData = try JSONSerialization.jsonObject(with: data!) as! [String:Any]
-                    let currentConditions = parsedData["photos"] as! [String:Any]
-                    let members = currentConditions["photo"] as! [[String: Any]]
-                    print(members.count)
+                  guard  let parsedData = try JSONSerialization.jsonObject(with: data) as? [String:Any],
+                    let currentConditions = parsedData["photos"] as? [String:Any],
+                    let members = currentConditions["photo"] as? [[String: Any]]
+                    else { return }
                     
                     for mem in members{
                         let photo = Photo()
                         
-                        photo.photoID  = mem["id"] as! String
-                        photo.farm = mem["farm"] as! Int
-                        photo.server = mem["server"] as! String
-                        photo.secret = mem["secret"] as! String
+                        guard let photoID = mem["id"] as? String,
+                            let farm = mem["farm"] as? Int,
+                            let server = mem["server"] as? String,
+                            let secret = mem["secret"] as? String
+                            else { break }
+                        
+                        photo.photoID  = photoID
+                        photo.farm = farm
+                        photo.server = server
+                        photo.secret = secret
                         self.photos.append(photo)
                     }
                     DispatchQueue.main.async{
@@ -156,18 +183,27 @@ class ViewController: UIViewController{
         guard let url = URL(string: urlString) else { return }
         
         session.dataTask(with:url) { (data, response, error) in
+           
+            guard let data = data,
+                let _ = response as? HTTPURLResponse
+                else { return }
+            
             if error != nil {
                 print(error!.localizedDescription)
             } else {
                 do {
-                    let parsedData = try JSONSerialization.jsonObject(with: data!) as! [String:Any]
-                    let currentConditions = parsedData["photosets"] as! [String:Any]
-                    let members = currentConditions["photoset"] as! [[String: Any]]
+                   guard let parsedData = try JSONSerialization.jsonObject(with: data) as? [String:Any],
+                    let currentConditions = parsedData["photosets"] as? [String:Any],
+                    let members = currentConditions["photoset"] as? [[String: Any]]
+                    else { return }
                     
                     for mem in members{
                         let photoSet = Album()
                         
-                        photoSet.photoSetID  = mem["id"] as! String
+                        guard let photoSetID  = mem["id"] as? String else { return}
+                       
+                        photoSet.photoSetID  = photoSetID
+                        
                         let sessionOne = URLSession.shared
                         
                         let urlStringOne  = "https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=6b78b4e6eda4ef1239026421f11c630a&user_id=158119896@N05&photoset_id=\(photoSet.photoSetID)&format=json&nojsoncallback=1"
@@ -175,28 +211,45 @@ class ViewController: UIViewController{
                         guard let url = URL(string: urlStringOne) else { return }
                         
                         sessionOne.dataTask(with:url) { (data, response, error) in
+                            guard let data = data,
+                                let _ = response as? HTTPURLResponse
+                                else { return }
+                            
                             if error != nil {
                                 print(error!.localizedDescription)
                             } else {
                                 do {
-                                    let parsedDataOne = try JSONSerialization.jsonObject(with: data!) as! [String:Any]
-                                    let currentConditionsOne = parsedDataOne["photoset"] as! [String:Any]
-                                    let membersOne = currentConditionsOne["photo"] as! [[String: Any]]
+                                   guard let parsedDataOne = try JSONSerialization.jsonObject(with: data) as? [String:Any],
+                                    let currentConditionsOne = parsedDataOne["photoset"] as? [String:Any],
+                                    let membersOne = currentConditionsOne["photo"] as? [[String: Any]]
+                                    else { return }
+                                    
                                     for memOne in membersOne{
                                         let  photo = Photo()
-                                        photo.photoID = memOne["id"] as! String
-                                        photo.farm = memOne["farm"] as! Int
-                                        photo.secret = memOne["secret"] as! String
-                                        photo.server = memOne["server"] as! String
+                                       
+                                        guard let photoID = memOne["id"] as? String,
+                                            let farm = memOne["farm"] as? Int,
+                                            let server = memOne["server"] as? String,
+                                            let secret = memOne["secret"] as? String
+                                            else { break }
+                                        
+                                        photo.photoID  = photoID
+                                        photo.farm = farm
+                                        photo.server = server
+                                        photo.secret = secret
                                         photoSet.setPhotos.append(photo)
                                     }
-                                    photoSet.photoSetTitle =   currentConditionsOne["title"] as! String
+                                   
+                                    guard let photoSetTitle = currentConditionsOne["title"] as? String
+                                        else { return }
+                                    
+                                    photoSet.photoSetTitle =  photoSetTitle
                                 }
                                 catch let error as NSError {
                                     print(error.localizedDescription)
                                 }
                                 self.sets.append(photoSet)
-                                print(self.sets.count)
+                               // print(self.sets.count)
                             }
                             }.resume()
                     }
@@ -214,8 +267,8 @@ class ViewController: UIViewController{
         if k != 0{
             if segue.identifier == "detail"{
                 let dvc = segue.destination as! DetailAlbumCollectionViewController;
-                dvc.setPhotos = sets[inexPath!].setPhotos
-                dvc.title = sets[inexPath!].photoSetTitle
+                dvc.setPhotos = sets[pathRow].setPhotos
+                dvc.title = sets[pathRow].photoSetTitle
             }
         }
     }
@@ -245,10 +298,11 @@ extension ViewController: UICollectionViewDataSource{
                 guard         let url = URL(string: "https://farm\(photo.farm).staticflickr.com/\(photo.server)/\(photo.photoID)_\(photo.secret)_m.jpg") else{ return }
                 
                 guard  let imageData = try? Data(contentsOf: url) else { return }
-                
+           
                 if let image = UIImage(data: imageData) {
                      DispatchQueue.main.async{
                         cell.myImageView.image = image
+ 
                     }
                 }
                  else {return}
@@ -258,7 +312,7 @@ extension ViewController: UICollectionViewDataSource{
         else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CellAlbum", for: indexPath) as! MyAlbumCollectionViewCell
             let photoSet = sets[indexPath.row]
-            print(indexPath.row)
+           
             
             DispatchQueue.global().async{
                 guard         let url = URL(string: "https://farm\(photoSet.setPhotos[0].farm).staticflickr.com/\(photoSet.setPhotos[0].server)/\(photoSet.setPhotos[0].photoID)_\(photoSet.setPhotos[0].secret)_m.jpg") else{ return }
@@ -281,8 +335,7 @@ extension ViewController: UICollectionViewDelegate{
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if k != 0 {
-            inexPath = indexPath.row
-            // print(inexPath)
+            pathRow = indexPath.row
             self.performSegue(withIdentifier: "detail", sender: self)
         }
         else {

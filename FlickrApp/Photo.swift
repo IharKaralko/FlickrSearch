@@ -60,6 +60,7 @@ class Photo  {
         guard let thumbnail = thumbnail else {
             return size
         }
+        
         let imageSize = thumbnail.size
         var returnSize = size
         let aspectRatio = imageSize.width / imageSize.height

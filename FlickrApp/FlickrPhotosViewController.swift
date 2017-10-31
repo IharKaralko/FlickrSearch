@@ -11,10 +11,10 @@ import UIKit
 
  class FlickrPhotosViewController: UICollectionViewController {
     
-    override func viewWillAppear(_ animated: Bool) {
-      UINavigationBar.appearance().tintColor = UIColor.black
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        UINavigationBar.appearance().tintColor = UIColor.white
     }
-    
     // MARK: - Properties
     let reuseIdentifier = "SearchCell"
     let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)

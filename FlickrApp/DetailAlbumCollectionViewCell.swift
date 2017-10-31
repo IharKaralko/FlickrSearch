@@ -11,4 +11,11 @@ import UIKit
 class DetailAlbumCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var detailAlbumImage: UIImageView!
+    
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        detailAlbumImage.image = nil
+    }
 }

@@ -7,14 +7,17 @@
 //
 
 import UIKit
+
+
 let apiKey = "6b78b4e6eda4ef1239026421f11c630a"
 
 class Flickr {
  
     
-    func flickrSearchURLForSearchTerm(_ searchTerm:String) -> URL? {
-        
-        guard let escapedTerm = searchTerm.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics) else {
+   func flickrSearchURLForSearchTerm( _ searchTerm:String) -> URL? {
+    
+    
+    guard let escapedTerm = searchTerm.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) else {
             return nil
         }
         
@@ -55,25 +58,27 @@ class Flickr {
                     }
                     return
             }
-                  do {
-                    let parsedData = try JSONSerialization.jsonObject(with: data) as! [String:Any]
-                  
-                    guard   let stat = parsedData["stat"] as? String else {
-                        return
-                    }
-                    
-                    switch (stat) {
-                    case "ok":
-                        print("Results processed OK")
-                    case "fail":
-                        print("Fail  process!!!! ")
-                        return
-                    default:
-                        return
-                    }
-                    
-                    guard let photosContainer = parsedData["photos"] as? [String: AnyObject],
-                        let photosReceived = photosContainer["photo"] as? [[String: AnyObject]] else {
+            do {
+                guard  let parsedData = try JSONSerialization.jsonObject(with: data) as? [String:Any]
+                    else{ return }
+                
+                guard   let stat = parsedData["stat"] as? String else {
+                    return
+                }
+                
+                switch (stat) {
+                case "ok":
+                    print("Results processed OK")
+                case "fail":
+                    print("Fail  process!!!! ")
+                    return
+                default:
+                    print("unknown case")
+                    return
+                }
+                
+                    guard let photosContainer = parsedData["photos"] as? [String: Any],
+                        let photosReceived = photosContainer["photo"] as? [[String: Any]] else {
                             let APIError = NSError(domain: "FlickrApp", code: 0, userInfo: [NSLocalizedFailureReasonErrorKey:"Unknown API response"])
                             DispatchQueue.main.async{
                                 completion(nil, APIError)
@@ -86,10 +91,18 @@ class Flickr {
                     for mem in photosReceived{
                         
                         let photo = Photo()
-                        photo.photoID  = mem["id"] as! String
-                        photo.farm = mem["farm"] as! Int
-                        photo.server = mem["server"] as! String
-                        photo.secret = mem["secret"] as! String
+                        
+                        guard let photoID = mem["id"] as? String,
+                            let farm = mem["farm"] as? Int,
+                            let server = mem["server"] as? String,
+                            let secret = mem["secret"] as? String
+                            else { break }
+                        
+                        photo.photoID  = photoID
+                        photo.farm = farm
+                        photo.server = server
+                        photo.secret = secret
+                        
                         
                         guard let url = photo.flickrImageURL(),
                             let imageData = try? Data(contentsOf: url as URL) else {
@@ -105,10 +118,10 @@ class Flickr {
                         completion(FlickrSearchResults(searchTerm: searchTerm, searchResults: flickrPhotos), nil)
                     }
                   }
-                    catch _ {
+                  catch  {
                     completion(nil, nil)
                     return
-             }
+            }
             
             }.resume()
         

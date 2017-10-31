@@ -12,7 +12,6 @@ class DetailAlbumCollectionViewController: UICollectionViewController, UICollect
     
     
     
-    
     let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
     let itemsPerRow: CGFloat = 3
     var setPhotos = [Photo]()
@@ -41,9 +40,6 @@ class DetailAlbumCollectionViewController: UICollectionViewController, UICollect
     }
     
       
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
  
     // MARK: - UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -55,18 +51,28 @@ class DetailAlbumCollectionViewController: UICollectionViewController, UICollect
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! DetailAlbumCollectionViewCell
         let photo = setPhotos[indexPath.row]
         
+        
         DispatchQueue.global().async{
+            do{
             guard  let url = URL(string: "https://farm\(photo.farm).staticflickr.com/\(photo.server)/\(photo.photoID)_\(photo.secret)_m.jpg") else{ return }
             
-            guard  let imageData = try? Data(contentsOf: url) else { return }
-            
-            if let image = UIImage(data: imageData) {
+           //     guard  let imageData = try? Data(contentsOf: url) else { return }
+                
+             let imageData = try Data(contentsOf: url)
+         
+                if let image = UIImage(data: imageData) {
                 DispatchQueue.main.async{
-                    cell.detailAlbumImage.image = image
+              
+              cell.detailAlbumImage.image = image
+
                 }
             }
              else {return}
-        }
+            }
+            catch let error as NSError {
+                print(error.localizedDescription)
+            }
+           }
         return cell
     }
      
@@ -85,7 +91,7 @@ class DetailAlbumCollectionViewController: UICollectionViewController, UICollect
             return flickrPhoto.sizeToFillWidthOfSize(size)
         }
 
-        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
+        let paddingSpace = sectionInsets.left * CGFloat(itemsPerRow + 1)
         let availableWidth = view.frame.width - paddingSpace
         let widthPerItem = availableWidth / itemsPerRow
         
