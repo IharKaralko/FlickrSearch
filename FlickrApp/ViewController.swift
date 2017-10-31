@@ -16,16 +16,7 @@ class ViewController: UIViewController{
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
-    deinit {
-        <#statements#>
-    }
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        <#code#>
-    }
-    override func awakeFromNib() {
-        <#code#>
-    }
-    
+       
     var pathRow = Int()
     var photos = [Photo]()
     var sets = [Album]()
